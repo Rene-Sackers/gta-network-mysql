@@ -1,0 +1,6 @@
+﻿<meta>
+  <info name="MySQL LINQ Example" description="MySQL LINQ Example" author="Eraknelo" version="1.0" />
+
+  <!-- Server -->
+  <script src="Server/Bin/MySQLLinqExample.dll" type="server" lang="compiled" />
+</meta>
