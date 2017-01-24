@@ -11,6 +11,6 @@ namespace MySQLLinqExample.resources.mysql.Server.Models
 
         public string LastIp { get; set; }
         
-        public string LastDisplayName { get; internal set; }
+        public string LastDisplayName { get; set; }
     }
 }

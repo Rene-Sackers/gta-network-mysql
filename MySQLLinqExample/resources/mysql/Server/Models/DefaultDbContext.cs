@@ -35,20 +35,24 @@ namespace MySQLLinqExample.resources.mysql.Server.Models
 
             ConnectionString = connectionStringBuilder.ToString();
         }
+        
+        private static DefaultDbContext _instance;
 
         public static DefaultDbContext Instance
         {
             get
             {
-                if (string.IsNullOrEmpty(ConnectionString)) throw new InvalidOperationException("Please set the connection parameters before trying to instantiate a database connection.");
-
-                return new DefaultDbContext(ConnectionString);
+                if (_instance != null) return _instance;
+                return _instance = new ContextFactory().Create();
             }
+            private set { }
         }
 
         public DefaultDbContext Create()
         {
-            return Instance;
+            if (string.IsNullOrEmpty(ConnectionString)) throw new InvalidOperationException("Please set the connection parameters before trying to instantiate a database connection.");
+
+            return new DefaultDbContext(ConnectionString);
         }
     }
 
@@ -58,6 +62,7 @@ namespace MySQLLinqExample.resources.mysql.Server.Models
         {
             AutomaticMigrationsEnabled = true;
             AutomaticMigrationDataLossAllowed = true;
+            SetSqlGenerator("MySql.Data.MySqlClient", new MySqlMigrationSqlGenerator());
         }
     }
 }
